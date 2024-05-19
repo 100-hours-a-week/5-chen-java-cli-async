@@ -6,45 +6,43 @@ import org.school.kakao.cinema.Cinema;
 import org.school.kakao.food.Food;
 import org.school.kakao.io.UserInput;
 import org.school.kakao.movie.ScreeningMovie;
+import org.school.kakao.movie.Seat;
+import org.school.kakao.movie.SeatGrade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Scenario {
+    private Audience audience;
+    private Cinema cinema;
+
     public Scenario() {
+
     }
 
-    public static void enter() {
-        // 관객 조사
-        int personCount = UserInput.nextInt("몇 명?");
-        List<Person> people = new ArrayList<>();
-        for (int i = 0; i < personCount; i++) {
-            Integer age = UserInput.nextInt("나이?");
-            String gender = UserInput.nextLine("성별? (M/F)");
+    public void enter() {
+        this.audience = askAudience();
 
-            people.add(new Person(age, gender));
-        }
-
-        Cinema cinema = new Cinema("Kakao");
+        this.cinema = new Cinema("Kakao");
 
         // 영화 선택
-        List<ScreeningMovie> movieList = cinema.getMovieList();
-        System.out.println("상영중인 영화");
-        for (int i = 1; i <= movieList.size(); i++) {
-            ScreeningMovie movie = movieList.get(i - 1);
-            System.out.println(i + " : " + movie.getTitle() + " at " + movie.getTime());
-        }
+        ScreeningMovie chosenMovie = askMovie();
+        audience.setMovie(chosenMovie);
 
-        ScreeningMovie movie = cinema.choiceMovie(UserInput.nextInt("어떤 영화?") - 1);
-
-        System.out.println("영화 : " + movie.getTitle());
-        System.out.println("시간 : " + movie.getTime());
-
-        // TODO : 좌석 선택
+        // 좌석 선택
+        List<SeatGrade> seatGrades = askSeats(chosenMovie);
+        audience.setSeatGrades(seatGrades);
 
         // 먹거리 선택
+        List<Food> chosenFoods = askFoods();
+        audience.setFoods(chosenFoods);
 
-        List<Food> foodList = cinema.getFoodList();
+
+    }
+
+    private List<Food> askFoods() {
+        List<Food> foodList = cinema.getFoods();
         for (int i = 1; i <= foodList.size(); i++) {
             Food food = foodList.get(i - 1);
             System.out.println(i + " : " + food.getName() + " " + food.getPrice());
@@ -58,6 +56,50 @@ public class Scenario {
                 System.out.println(chosenFood.getName() + " : " + chosenFood.getPrice() + "원");
             }
         }
+        return chosenFoods;
+    }
 
+    private Audience askAudience() {
+        int personCount = UserInput.nextInt("몇 명?");
+        List<Person> people = new ArrayList<>();
+        for (int i = 0; i < personCount; i++) {
+            Integer age = UserInput.nextInt("나이?");
+            String gender = UserInput.nextLine("성별? (M/F)");
+
+            people.add(new Person(age, gender));
+        }
+        return new Audience(people);
+    }
+
+    private ScreeningMovie askMovie() {
+        List<ScreeningMovie> movieList = cinema.getMovieList();
+        System.out.println("상영중인 영화");
+        for (int i = 1; i <= movieList.size(); i++) {
+            ScreeningMovie movie = movieList.get(i - 1);
+            System.out.println(i + " : " + movie.getTitle() + " at " + movie.getTime());
+        }
+
+        Integer order = UserInput.nextInt("어떤 영화?");
+        ScreeningMovie chosenMovie = cinema.getMovie(order);
+        System.out.println("선택하신 영화 : " + chosenMovie.getTitle() + " at " + chosenMovie.getTime());
+        return chosenMovie;
+    }
+
+    private List<SeatGrade> askSeats(ScreeningMovie chosenMovie) {
+        Map<String, List<Seat>> cinemaSeats = chosenMovie.getSeats();
+        for (Map.Entry<String, List<Seat>> entry : cinemaSeats.entrySet()) {
+            String key = entry.getKey();
+            List<Seat> seats = entry.getValue();
+            System.out.printf("%-10s", seats.get(0).getGrade());
+            for (int i = 0; i < seats.size(); i++) {
+                System.out.printf("%-4s", key + (i + 1));
+            }
+            System.out.println();
+        }
+
+        String order = UserInput.nextLine("좌석을 선택해 주세요. (쉼표로 구분)");
+        // TODO : cinema.validateSeats;
+        List<SeatGrade> seatGrades = cinema.choiceSeats(chosenMovie, order);
+        return seatGrades;
     }
 }

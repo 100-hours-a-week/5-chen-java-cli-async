@@ -16,6 +16,10 @@ public class Seat {
         return occupied;
     }
 
+    public SeatGrade getGrade() {
+        return grade;
+    }
+
     public void book() {
         this.occupied = true;
     }

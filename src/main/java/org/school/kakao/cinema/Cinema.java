@@ -3,17 +3,20 @@ package org.school.kakao.cinema;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodFactory;
 import org.school.kakao.movie.Genre;
-import org.school.kakao.movie.Movie;
 import org.school.kakao.movie.ScreeningMovie;
+import org.school.kakao.movie.Seat;
+import org.school.kakao.movie.SeatGrade;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class Cinema {
     private String name;
     private List<ScreeningMovie> movies;
     private List<Food> foods;
+
 
     public Cinema(String name) {
         this.name = name;
@@ -24,34 +27,52 @@ public class Cinema {
         this.foods = FoodFactory.create();
     }
 
+    public List<Food> getFoods() {
+        return foods;
+    }
+
     public List<ScreeningMovie> getMovieList() {
         return movies;
     }
 
-    public ScreeningMovie choiceMovie(int number) throws IllegalArgumentException {
+    public ScreeningMovie getMovie(int numFromCustomer) {
         try {
-            return movies.get(number);
+            return movies.get(numFromCustomer - 1);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("잘못 입력하셨습니다.");
         }
     }
 
-    public List<Food> getFoodList() {
-        return foods;
-    }
-
-    public List<Food> choiceFoods(String order) throws IllegalArgumentException {
-        if (order.isBlank()) {
+    public List<Food> choiceFoods(String orderFromCustomer) throws IllegalArgumentException {
+        if (orderFromCustomer.isBlank()) {
             return List.of();
         }
 
         try {
-            return Stream.of(order.split(","))
+            return Stream.of(orderFromCustomer.split(","))
                     .map(Integer::parseInt)
                     .map(num -> foods.get(num - 1))
                     .toList();
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("잘못 입력하셨습니다.");
         }
+    }
+
+    public List<SeatGrade> choiceSeats(ScreeningMovie movie, String order) {
+        if (order.isBlank()) {
+            throw new IllegalArgumentException("좌석 선택 없음");
+        }
+        Map<String, List<Seat>> seats = movie.getSeats();
+        return Stream.of(order.split(","))
+                .map(str -> {
+                    String[] split = str.split("");
+                    String key = split[0];
+                    int strNum = Integer.parseInt(split[1]);
+
+                    List<Seat> seatLane = seats.get(key);
+                    return seatLane.get(strNum - 1);
+                })
+                .map(Seat::getGrade)
+                .toList();
     }
 }

@@ -2,16 +2,16 @@ package org.school.kakao.movie;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class ScreeningMovie extends MovieAtTime {
     Map<String, List<Seat>> seats;
 
     public ScreeningMovie(String title, Genre genre, LocalTime time) {
         super(title, genre, time);
-        this.seats = new HashMap<>();
+        this.seats = new TreeMap<>();
         this.seats = createSeats(5, 5, 5, 5);
     }
 
@@ -41,5 +41,10 @@ public class ScreeningMovie extends MovieAtTime {
                 "C", platinumSeats,
                 "D", diamondSeats
         );
+    }
+
+    public Map<String, List<Seat>> getSeats() {
+
+        return seats;
     }
 }
