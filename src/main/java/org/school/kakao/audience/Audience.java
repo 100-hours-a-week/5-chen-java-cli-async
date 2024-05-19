@@ -1,5 +1,6 @@
 package org.school.kakao.audience;
 
+import org.school.kakao.movie.Movie;
 import org.school.kakao.movie.ScreeningMovie;
 
 import java.util.List;
