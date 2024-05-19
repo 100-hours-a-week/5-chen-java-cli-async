@@ -1,6 +1,5 @@
 package org.school.kakao;
 
-import org.school.kakao.audience.Audience;
 import org.school.kakao.audience.Person;
 import org.school.kakao.cinema.Cinema;
 import org.school.kakao.food.Food;

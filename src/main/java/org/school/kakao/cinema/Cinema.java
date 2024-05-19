@@ -3,7 +3,6 @@ package org.school.kakao.cinema;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodFactory;
 import org.school.kakao.movie.Genre;
-import org.school.kakao.movie.Movie;
 import org.school.kakao.movie.ScreeningMovie;
 
 import java.time.LocalTime;
