@@ -3,10 +3,10 @@ package org.school.kakao.io;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class UserInput {
+public class InputManager {
     private static Scanner instance = new Scanner(System.in);
 
-    private UserInput() {
+    private InputManager() {
     }
 
     public static String nextLine() {
@@ -14,7 +14,10 @@ public class UserInput {
     }
 
     private static String inputNextLine() {
-        return instance.nextLine();
+        if (instance.hasNextLine()) {
+            return instance.nextLine();
+        }
+        return "";
     }
 
     public static String nextLine(String prompt) {
@@ -31,9 +34,7 @@ public class UserInput {
         } catch (InputMismatchException e) {
             discardEnter();
             System.out.println("잘못 입력하셨습니다.");
-            int i = instance.nextInt();
-            discardEnter();
-            return i;
+            return nextInt(prompt);
         }
 
     }

@@ -44,7 +44,6 @@ public class ScreeningMovie extends MovieAtTime {
     }
 
     public Map<String, List<Seat>> getSeats() {
-
         return seats;
     }
 }
