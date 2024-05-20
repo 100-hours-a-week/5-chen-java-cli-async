@@ -2,14 +2,15 @@ package org.school.kakao.discount;
 
 import org.school.kakao.audience.Audience;
 
-public class AudienceDiscountStrategy<T extends Audience> implements DiscountStrategy<T> {
-    @Override
-    public boolean canApply(T audience) {
-        return false;
-    }
+import java.util.List;
+
+public class AudienceDiscountStrategy implements DiscountStrategy<Audience> {
 
     @Override
-    public DiscountResult discount(T audience) {
-        return null;
+    public DiscountResult discount(Audience audience) {
+        if (audience.size() > 2) {
+            return new DiscountResult(List.of(new DiscountItem("단체 할인", 1000)));
+        }
+        return new DiscountResult();
     }
 }

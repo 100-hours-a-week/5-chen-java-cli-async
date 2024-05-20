@@ -1,16 +1,17 @@
 package org.school.kakao.discount;
 
+import org.school.kakao.movie.Movie;
+
 import java.time.LocalTime;
+import java.util.List;
 
 public class TimeDiscountStrategy implements DiscountStrategy<LocalTime> {
 
     @Override
-    public boolean canApply(LocalTime time) {
-        return false;
-    }
-
-    @Override
     public DiscountResult discount(LocalTime time) {
-        return null;
+        if (time.isAfter(LocalTime.of(18, 0))) {
+            return new DiscountResult(List.of(new DiscountItem("오후 할인", 1000)));
+        }
+        return new DiscountResult();
     }
 }

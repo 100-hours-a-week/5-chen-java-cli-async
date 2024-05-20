@@ -1,10 +1,14 @@
 package org.school.kakao.discount;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class DiscountResult {
     private List<DiscountItem> discountItems;
+
+    public DiscountResult() {
+        discountItems = new LinkedList<>();
+    }
 
     public DiscountResult(List<DiscountItem> discountItems) {
         this.discountItems = discountItems;
@@ -12,5 +16,13 @@ public class DiscountResult {
 
     public int getTotal() {
         return discountItems.stream().map(DiscountItem::getAmount).reduce(0, Integer::sum);
+    }
+
+    public void addAll(DiscountResult other) {
+        this.discountItems.addAll(other.getDiscountItems());
+    }
+
+    public List<DiscountItem> getDiscountItems() {
+        return discountItems;
     }
 }

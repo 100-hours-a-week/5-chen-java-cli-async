@@ -8,4 +8,8 @@ public class Audience {
     public Audience(List<Person> people) {
         this.people = people;
     }
+
+    public int size() {
+        return people.size();
+    }
 }

@@ -2,6 +2,7 @@ package org.school.kakao.config;
 
 import org.school.kakao.AppController;
 import org.school.kakao.audience.AudienceService;
+import org.school.kakao.discount.*;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodService;
 import org.school.kakao.movie.Genre;
@@ -16,7 +17,8 @@ public class AppConfig {
         return new AppController(
                 audienceService(),
                 cinemaService(),
-                foodService()
+                foodService(),
+                discountService()
         );
     }
 
@@ -41,5 +43,13 @@ public class AppConfig {
                         new Food("아이스크림", 3000),
                         new Food("콜라", 4000)
                 ));
+    }
+
+    public DiscountService discountService() {
+        return new DiscountService(
+                new MovieDiscountStrategy(),
+                new TimeDiscountStrategy(),
+                new AudienceDiscountStrategy()
+        );
     }
 }
