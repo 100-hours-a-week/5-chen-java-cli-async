@@ -1,7 +1,10 @@
 package org.school.kakao.discount;
 
+import org.school.kakao.AppContext;
+import org.school.kakao.audience.Audience;
 import org.school.kakao.movie.MovieAtTime;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -16,11 +19,15 @@ public class DiscountService {
         this.audienceDiscountStrategy = audienceDiscountStrategy;
     }
 
-    public DiscountResult discount(DiscountableItems items) {
-        MovieAtTime movie = items.getMovie();
+    public void discount() {
+        AppContext appContext = AppContext.getInstance();
+        MovieAtTime movie = appContext.getScreeningMovie();
+        Audience audience = appContext.getAudience();
+        LocalTime movieTime = movie.getTime();
+
         DiscountResult result = Stream.of(
-                audienceDiscountStrategy.discount(items.getAudience()),
-                timeDiscountStrategy.discount(movie.getTime()),
+                audienceDiscountStrategy.discount(audience),
+                timeDiscountStrategy.discount(movieTime),
                 movieDiscountStrategy.discount(movie)
         ).collect(DiscountResult::new, DiscountResult::addAll, DiscountResult::addAll);
 
@@ -28,6 +35,6 @@ public class DiscountService {
         for (DiscountItem discountItem : discountItems) {
             System.out.println(discountItem.getName() + " : " + discountItem.getAmount());
         }
-        return result;
+        appContext.setDiscountResult(result);
     }
 }

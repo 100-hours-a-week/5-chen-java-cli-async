@@ -1,5 +1,6 @@
 package org.school.kakao.food;
 
+import org.school.kakao.AppContext;
 import org.school.kakao.io.InputManager;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class FoodService {
         this.foods = foods;
     }
 
-    public List<Food> askFoods() {
+    public void ask() {
         for (int i = 1; i <= foods.size(); i++) {
             Food food = foods.get(i - 1);
             System.out.println(i + " : " + food.getName() + " " + food.getPrice());
@@ -26,7 +27,7 @@ public class FoodService {
                 System.out.println(chosenFood.getName() + " : " + chosenFood.getPrice() + "원");
             }
         }
-        return chosenFoods;
+        AppContext.getInstance().setFoods(chosenFoods);
     }
 
     private List<Food> choiceFoods(String orderFromCustomer) throws IllegalArgumentException {

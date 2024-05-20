@@ -1,15 +1,14 @@
 package org.school.kakao.audience;
 
+import org.school.kakao.AppContext;
 import org.school.kakao.io.InputManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AudienceService {
-    public AudienceService() {
-    }
 
-    public Audience ask() {
+    public void ask() {
         int personCount = InputManager.nextInt("몇 명?");
         List<Person> people = new ArrayList<>();
         for (int i = 0; i < personCount; i++) {
@@ -18,6 +17,6 @@ public class AudienceService {
 
             people.add(new Person(age, gender));
         }
-        return new Audience(people);
+        AppContext.getInstance().setAudience(new Audience(people));
     }
 }
