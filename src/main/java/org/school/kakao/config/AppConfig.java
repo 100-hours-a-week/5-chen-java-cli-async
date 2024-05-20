@@ -2,7 +2,10 @@ package org.school.kakao.config;
 
 import org.school.kakao.AppController;
 import org.school.kakao.audience.AudienceService;
-import org.school.kakao.discount.*;
+import org.school.kakao.discount.AudienceDiscountStrategy;
+import org.school.kakao.discount.DiscountService;
+import org.school.kakao.discount.MovieDiscountStrategy;
+import org.school.kakao.discount.TimeDiscountStrategy;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodService;
 import org.school.kakao.movie.Genre;

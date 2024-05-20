@@ -1,7 +1,5 @@
 package org.school.kakao.discount;
 
-import org.school.kakao.movie.Movie;
-
 import java.time.LocalTime;
 import java.util.List;
 
