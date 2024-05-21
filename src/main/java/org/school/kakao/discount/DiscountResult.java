@@ -27,4 +27,9 @@ public class DiscountResult {
     public List<DiscountItem> getDiscountItems() {
         return discountItems;
     }
+
+    public List<String> getNames() {
+        return discountItems.stream().map(DiscountItem::getName).toList();
+    }
+
 }

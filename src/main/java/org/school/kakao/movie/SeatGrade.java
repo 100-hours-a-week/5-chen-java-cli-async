@@ -6,7 +6,6 @@ public enum SeatGrade {
     PLATINUM(9000),
     DIAMOND(10000);
 
-
     private int price;
 
     SeatGrade(int price) {
