@@ -1,7 +1,7 @@
 package org.school.kakao.movie;
 
 public class Seat {
-    private SeatGrade grade;
+    private final SeatGrade grade;
     private boolean occupied = false;
 
     public Seat(SeatGrade grade) {
@@ -16,11 +16,8 @@ public class Seat {
         return occupied;
     }
 
-    public SeatGrade getGrade() {
-        return grade;
-    }
-
-    public void book() {
+    public SeatGrade book() {
         this.occupied = true;
+        return this.grade;
     }
 }

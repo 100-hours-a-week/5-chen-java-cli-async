@@ -24,19 +24,19 @@ public class OutputManager {
 
         AppContext context = AppContext.getInstance();
         if (context.getAudience() != null) {
-            System.out.printf("%-8s : %d %n", "손님 수", context.getAudience().size());
+            System.out.printf("%-10s : %d %n", "손님 수", context.getAudience().size());
         }
 
         if (context.getScreeningMovie() != null) {
             String movieTitle = context.getScreeningMovie().getTitle();
             LocalTime movieTime = context.getScreeningMovie().getTime();
-            System.out.printf("%-8s : %s (%02d:%02d)%n", "영화", movieTitle, movieTime.getHour(), movieTime.getMinute());
+            System.out.printf("%-10s  : %s (%02d:%02d)%n", "영화", movieTitle, movieTime.getHour(), movieTime.getMinute());
         }
 
         if (context.getFoods() != null) {
             List<Food> foods = context.getFoods();
             if (foods.isEmpty()) {
-                System.out.printf("%-8s : %s %n", "주문 음식", "없음");
+                System.out.printf("%-10s : %s %n", "주문 음식", "없음");
             } else {
                 String foodName = foods.stream()
                         .map(Food::getName)
@@ -44,8 +44,8 @@ public class OutputManager {
                 int foodPrice = foods.stream()
                         .map(Food::getPrice)
                         .reduce(0, Integer::sum);
-                System.out.printf("%-8s : %s %n", "주문 음식", foodName);
-                System.out.printf("%-8s : %s %n", "음식 가격", foodPrice);
+                System.out.printf("%-10s : %s %n", "주문 음식", foodName);
+                System.out.printf("%-10s : %s %n", "음식 가격", foodPrice);
             }
 
         }

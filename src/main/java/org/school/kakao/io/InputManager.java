@@ -24,11 +24,11 @@ public class InputManager {
 
     private static int inputNextInt() {
         int i = instance.nextInt();
-        discardEnter();
+        discard();
         return i;
     }
 
-    private static void discardEnter() {
+    private static void discard() {
         if (instance.hasNextLine()) {
             instance.nextLine();
         }
@@ -44,6 +44,7 @@ public class InputManager {
         try {
             return inputNextInt();
         } catch (InputMismatchException e) {
+            discard();
             printPrompt("잘못 입력하셨습니다.");
             return nextInt(prompt);
         }
@@ -64,6 +65,5 @@ public class InputManager {
         } catch (IndexOutOfBoundsException e) {
             return nextInt("잘못된 숫자입니다. 다시 입력해 주세요.", function);
         }
-
     }
 }

@@ -9,10 +9,7 @@ import org.school.kakao.discount.MovieDiscountStrategy;
 import org.school.kakao.discount.TimeDiscountStrategy;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodService;
-import org.school.kakao.movie.Genre;
-import org.school.kakao.movie.MovieService;
-import org.school.kakao.movie.ScreeningMovie;
-import org.school.kakao.movie.SeatService;
+import org.school.kakao.movie.*;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -34,12 +31,11 @@ public class AppConfig {
     }
 
     public MovieService movieService() {
-        return new MovieService(
-                List.of(
-                        new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30)),
-                        new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30))
-                )
+        List<ScreeningMovie> movies = List.of(
+                new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), new Seats(5, 5, 5, 5)),
+                new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), new Seats(5, 5, 5, 5))
         );
+        return new MovieService(movies);
     }
 
     public SeatService seatService() {
