@@ -8,10 +8,6 @@ public class Seat {
         this.grade = grade;
     }
 
-    public int getPrice() {
-        return grade.getPrice();
-    }
-
     public boolean isOccupied() {
         return occupied;
     }
