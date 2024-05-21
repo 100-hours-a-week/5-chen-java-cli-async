@@ -2,6 +2,7 @@ package org.school.kakao.discount;
 
 import org.school.kakao.AppContext;
 import org.school.kakao.audience.Audience;
+import org.school.kakao.io.OutputManager;
 import org.school.kakao.movie.MovieAtTime;
 
 import java.time.LocalTime;
@@ -20,6 +21,7 @@ public class DiscountService {
     }
 
     public void discount() {
+        OutputManager.render();
         AppContext appContext = AppContext.getInstance();
         MovieAtTime movie = appContext.getScreeningMovie();
         Audience audience = appContext.getAudience();
@@ -30,11 +32,6 @@ public class DiscountService {
                 timeDiscountStrategy.discount(movieTime),
                 movieDiscountStrategy.discount(movie)
         ).collect(DiscountResult::new, DiscountResult::addAll, DiscountResult::addAll);
-
-        List<DiscountItem> discountItems = result.getDiscountItems();
-        for (DiscountItem discountItem : discountItems) {
-            System.out.println(discountItem.getName() + " : " + discountItem.getAmount());
-        }
         appContext.setDiscountResult(result);
     }
 }

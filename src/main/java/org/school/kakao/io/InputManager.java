@@ -2,6 +2,8 @@ package org.school.kakao.io;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.function.IntFunction;
 
 public class InputManager {
     private static Scanner instance = new Scanner(System.in);
@@ -9,8 +11,8 @@ public class InputManager {
     private InputManager() {
     }
 
-    public static String nextLine() {
-        return inputNextLine();
+    private static void printPrompt(String prompt) {
+        System.out.println("# " + prompt);
     }
 
     private static String inputNextLine() {
@@ -20,28 +22,48 @@ public class InputManager {
         return "";
     }
 
-    public static String nextLine(String prompt) {
-        System.out.println(prompt);
-        return inputNextLine();
-    }
-
-    public static Integer nextInt(String prompt) {
-        System.out.println(prompt);
-        try {
-            int i = instance.nextInt();
-            discardEnter();
-            return i;
-        } catch (InputMismatchException e) {
-            discardEnter();
-            System.out.println("잘못 입력하셨습니다.");
-            return nextInt(prompt);
-        }
-
+    private static int inputNextInt() {
+        int i = instance.nextInt();
+        discardEnter();
+        return i;
     }
 
     private static void discardEnter() {
         if (instance.hasNextLine()) {
             instance.nextLine();
         }
+    }
+
+    public static String nextLine(String prompt) {
+        printPrompt(prompt);
+        return inputNextLine();
+    }
+
+    public static Integer nextInt(String prompt) {
+        printPrompt(prompt);
+        try {
+            return inputNextInt();
+        } catch (InputMismatchException e) {
+            printPrompt("잘못 입력하셨습니다.");
+            return nextInt(prompt);
+        }
+    }
+
+
+    public static <R> R nextLine(String prompt, Function<String, R> function) {
+        try {
+            return function.apply(nextLine(prompt));
+        } catch (IllegalArgumentException exception) {
+            return nextLine(exception.getMessage(), function);
+        }
+    }
+
+    public static <R> R nextInt(String prompt, IntFunction<R> function) {
+        try {
+            return function.apply(nextInt(prompt));
+        } catch (IndexOutOfBoundsException e) {
+            return nextInt("잘못된 숫자입니다. 다시 입력해 주세요.", function);
+        }
+
     }
 }

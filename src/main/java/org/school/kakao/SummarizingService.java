@@ -1,6 +1,7 @@
 package org.school.kakao;
 
 import org.school.kakao.food.Food;
+import org.school.kakao.io.OutputManager;
 import org.school.kakao.movie.SeatGrade;
 
 public class SummarizingService {
@@ -8,6 +9,7 @@ public class SummarizingService {
     }
 
     public void summarize() {
+        OutputManager.render();
         AppContext context = AppContext.getInstance();
 
         int seatPrice = context.getSeatGrades().stream()

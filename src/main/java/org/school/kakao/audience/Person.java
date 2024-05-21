@@ -4,9 +4,14 @@ public class Person {
     private int age;
     private Gender gender;
 
-    public Person(int age, String gender) {
+    public Person(int age, String gender) throws IllegalArgumentException {
         this.age = age;
-        this.gender = Gender.of(gender);
+        gender = gender.toUpperCase();
+        this.gender = switch (gender) {
+            case "M" -> Gender.MALE;
+            case "F" -> Gender.FEMALE;
+            default -> throw new IllegalArgumentException("잘못 입력하셨습니다. M,F 만 입력해주세요.");
+        };
     }
 
     public boolean isAdult() {

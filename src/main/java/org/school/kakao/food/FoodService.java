@@ -2,6 +2,7 @@ package org.school.kakao.food;
 
 import org.school.kakao.AppContext;
 import org.school.kakao.io.InputManager;
+import org.school.kakao.io.OutputManager;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -14,19 +15,12 @@ public class FoodService {
     }
 
     public void ask() {
+        OutputManager.render();
         for (int i = 1; i <= foods.size(); i++) {
             Food food = foods.get(i - 1);
-            System.out.println(i + " : " + food.getName() + " " + food.getPrice());
+            OutputManager.println(i + " : " + food.getName() + " " + food.getPrice());
         }
         List<Food> chosenFoods = choiceFoods(InputManager.nextLine("먹거리 선택하시겠습니까? (쉼표로 구분)"));
-        if (chosenFoods.isEmpty()) {
-            System.out.println("주문하신 먹거리가 없습니다.");
-        } else {
-            System.out.println("주문하신 먹거리:");
-            for (Food chosenFood : chosenFoods) {
-                System.out.println(chosenFood.getName() + " : " + chosenFood.getPrice() + "원");
-            }
-        }
         AppContext.getInstance().setFoods(chosenFoods);
     }
 
