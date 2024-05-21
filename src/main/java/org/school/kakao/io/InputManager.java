@@ -39,7 +39,7 @@ public class InputManager {
         return inputNextLine();
     }
 
-    public static Integer nextInt(String prompt) {
+    public static int nextInt(String prompt) {
         printPrompt(prompt);
         try {
             return inputNextInt();

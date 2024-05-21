@@ -3,7 +3,6 @@ package org.school.kakao;
 import org.school.kakao.audience.AudienceService;
 import org.school.kakao.discount.DiscountService;
 import org.school.kakao.food.FoodService;
-import org.school.kakao.io.OutputManager;
 import org.school.kakao.movie.MovieService;
 import org.school.kakao.movie.SeatService;
 

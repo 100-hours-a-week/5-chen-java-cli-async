@@ -38,8 +38,12 @@ public class OutputManager {
             if (foods.isEmpty()) {
                 System.out.printf("%-8s : %s %n", "주문 음식", "없음");
             } else {
-                String foodName = foods.stream().map(Food::getName).collect(Collectors.joining(","));
-                Integer foodPrice = foods.stream().map(Food::getPrice).reduce(0, Integer::sum);
+                String foodName = foods.stream()
+                        .map(Food::getName)
+                        .collect(Collectors.joining(","));
+                int foodPrice = foods.stream()
+                        .map(Food::getPrice)
+                        .reduce(0, Integer::sum);
                 System.out.printf("%-8s : %s %n", "주문 음식", foodName);
                 System.out.printf("%-8s : %s %n", "음식 가격", foodPrice);
             }
@@ -52,7 +56,7 @@ public class OutputManager {
     public static void println(String prompt) {
         System.out.println("# " + prompt);
     }
-    
+
     public static void rawPrintf(String format, Object... args) {
         System.out.printf(format, args);
     }

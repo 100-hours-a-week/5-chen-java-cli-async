@@ -8,19 +8,19 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class FoodService {
-    private List<Food> foods;
+    private final List<Food> foodsInCinema;
 
-    public FoodService(List<Food> foods) {
-        this.foods = foods;
+    public FoodService(List<Food> foodsInCinema) {
+        this.foodsInCinema = foodsInCinema;
     }
 
     public void ask() {
         OutputManager.render();
-        for (int i = 1; i <= foods.size(); i++) {
-            Food food = foods.get(i - 1);
+        for (int i = 1; i <= foodsInCinema.size(); i++) {
+            Food food = foodsInCinema.get(i - 1);
             OutputManager.println(i + " : " + food.getName() + " " + food.getPrice());
         }
-        List<Food> chosenFoods = choiceFoods(InputManager.nextLine("먹거리 선택하시겠습니까? (쉼표로 구분)"));
+        List<Food> chosenFoods = InputManager.nextLine("먹거리 선택하시겠습니까? (쉼표로 구분)", this::choiceFoods);
         AppContext.getInstance().setFoods(chosenFoods);
     }
 
@@ -32,10 +32,12 @@ public class FoodService {
         try {
             return Stream.of(orderFromCustomer.split(","))
                     .map(Integer::parseInt)
-                    .map(num -> foods.get(num - 1))
+                    .map(num -> foodsInCinema.get(num - 1))
                     .toList();
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("잘못 입력하셨습니다.");
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("숫자를 입력해 주세요.");
         }
     }
 }

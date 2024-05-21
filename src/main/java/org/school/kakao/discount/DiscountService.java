@@ -6,13 +6,12 @@ import org.school.kakao.io.OutputManager;
 import org.school.kakao.movie.MovieAtTime;
 
 import java.time.LocalTime;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class DiscountService {
-    private MovieDiscountStrategy movieDiscountStrategy;
-    private TimeDiscountStrategy timeDiscountStrategy;
-    private AudienceDiscountStrategy audienceDiscountStrategy;
+    private final MovieDiscountStrategy movieDiscountStrategy;
+    private final TimeDiscountStrategy timeDiscountStrategy;
+    private final AudienceDiscountStrategy audienceDiscountStrategy;
 
     public DiscountService(MovieDiscountStrategy movieDiscountStrategy, TimeDiscountStrategy timeDiscountStrategy, AudienceDiscountStrategy audienceDiscountStrategy) {
         this.movieDiscountStrategy = movieDiscountStrategy;
@@ -32,6 +31,7 @@ public class DiscountService {
                 timeDiscountStrategy.discount(movieTime),
                 movieDiscountStrategy.discount(movie)
         ).collect(DiscountResult::new, DiscountResult::addAll, DiscountResult::addAll);
+
         appContext.setDiscountResult(result);
     }
 }

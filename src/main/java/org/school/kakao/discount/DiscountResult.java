@@ -15,7 +15,9 @@ public class DiscountResult {
     }
 
     public int getTotal() {
-        return discountItems.stream().map(DiscountItem::getAmount).reduce(0, Integer::sum);
+        return discountItems.stream()
+                .map(DiscountItem::getAmount)
+                .reduce(0, Integer::sum);
     }
 
     public void addAll(DiscountResult other) {
