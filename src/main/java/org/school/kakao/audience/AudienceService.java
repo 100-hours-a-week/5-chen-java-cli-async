@@ -1,6 +1,5 @@
 package org.school.kakao.audience;
 
-import org.school.kakao.AppContext;
 import org.school.kakao.io.InputManager;
 import org.school.kakao.io.OutputManager;
 

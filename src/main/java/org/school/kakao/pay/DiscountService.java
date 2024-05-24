@@ -1,13 +1,9 @@
 package org.school.kakao.pay;
 
-import org.school.kakao.AppContext;
 import org.school.kakao.audience.Audience;
 import org.school.kakao.food.Food;
-import org.school.kakao.io.OutputManager;
-import org.school.kakao.movie.MovieAtTime;
 import org.school.kakao.movie.MovieDTO;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Stream;
 

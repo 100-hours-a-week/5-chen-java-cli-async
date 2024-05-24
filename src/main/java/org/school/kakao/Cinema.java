@@ -6,9 +6,8 @@ import org.school.kakao.io.OutputManager;
 import org.school.kakao.movie.MovieController;
 
 public class Cinema {
-
-    private FoodController foodController;
-    private MovieController movieController;
+    private final FoodController foodController;
+    private final MovieController movieController;
 
     public Cinema(FoodController foodController, MovieController movieController) {
         this.foodController = foodController;
@@ -18,7 +17,6 @@ public class Cinema {
     public void start() {
         OutputManager.render();
         while (true) {
-            AppContext.newInstance();
             int op = InputManager.nextInt("선택 (Movie, Food, END)");
 
             switch (op) {

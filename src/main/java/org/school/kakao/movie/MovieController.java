@@ -8,10 +8,10 @@ import org.school.kakao.pay.DiscountService;
 
 public class MovieController {
 
-    private AudienceService audienceService;
-    private MovieService movieService;
-    private DiscountService discountService;
-    private SummarizingService summarizingService;
+    private final AudienceService audienceService;
+    private final MovieService movieService;
+    private final DiscountService discountService;
+    private final SummarizingService summarizingService;
 
     public MovieController(AudienceService audienceService, MovieService movieService, DiscountService discountService, SummarizingService summarizingService) {
         this.audienceService = audienceService;
