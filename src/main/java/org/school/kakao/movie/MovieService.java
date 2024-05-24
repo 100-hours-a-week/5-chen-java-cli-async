@@ -5,6 +5,7 @@ import org.school.kakao.io.InputManager;
 import org.school.kakao.io.OutputManager;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class MovieService {
     private final List<ScreeningMovie> moviesInCinema;
@@ -39,13 +40,24 @@ public class MovieService {
                 throw new IllegalArgumentException("좌석 선택 없음");
             }
 
-            List<String> orders = List.of(order.split(","));
+            List<String> seatOrders = Stream.of(order.split(",")).map(String::toUpperCase).toList();
 
-            if (orders.size() != audience.size()) {
+            if (seatOrders.size() != audience.size()) {
                 throw new IllegalArgumentException("좌석 개수 맞지 않음");
             }
 
-            return chosenMovie.book(orders);
+            for (int i = 0; i < seatOrders.size(); i++) {
+                for (int j = 0; j < seatOrders.size(); j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    if (seatOrders.get(i).equals(seatOrders.get(j))) {
+                        throw new IllegalArgumentException("같은 좌석을 두 개 예약하셨습니다.");
+                    }
+                }
+            }
+
+            return chosenMovie.book(seatOrders);
         });
 
         return new MovieDTO(chosenMovie, seatGrades);

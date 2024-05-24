@@ -31,28 +31,35 @@ public class ScreeningMovie extends MovieAtTime {
         return temp;
     }
 
-    public List<SeatGrade> book(List<String> order) {
-        return order.stream()
-                .map(str -> {
-                    String[] split = str.split("");
-                    String key = split[0].toUpperCase();
-                    int strNum = Integer.parseInt(split[1]);
+    public List<SeatGrade> book(List<String> order) throws IllegalArgumentException {
+        List<Seat> list = new ArrayList<>();
+        for (String seatOrder : order) {
+            String[] split = seatOrder.split("");
+            String key = split[0].toUpperCase();
+            int strNum = Integer.parseInt(split[1]);
 
-                    List<Seat> seatLane = seatMap.get(key);
-                    return seatLane.get(strNum - 1);
-                })
-                .map(Seat::book)
-                .toList();
+            List<Seat> seatLane = seatMap.get(key);
+            Seat seat = seatLane.get(strNum - 1);
+            if (seat.isOccupied()) {
+                throw new IllegalArgumentException("이미 예약되었습니다. : " + seatOrder);
+            }
+            list.add(seat);
+        }
+        return list.stream().map(Seat::book).toList();
     }
 
     public List<List<String>> listing() {
         NavigableSet<String> keys = seatMap.descendingKeySet();
         List<List<String>> result = new LinkedList<>();
         for (String key : keys) {
-            int size = seatMap.get(key).size();
-            ArrayList<String> list = new ArrayList<>(size);
-            for (int i = 1; i <= size; i++) {
-                list.add(key + i);
+            List<Seat> seats = seatMap.get(key);
+            ArrayList<String> list = new ArrayList<>(seats.size());
+            for (int i = 1; i <= seats.size(); i++) {
+                if (seats.get(i - 1).isOccupied()) {
+                    list.add("X");
+                } else {
+                    list.add(key + i);
+                }
             }
             result.add(list);
         }
