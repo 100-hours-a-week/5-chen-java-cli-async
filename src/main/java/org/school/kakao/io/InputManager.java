@@ -50,7 +50,6 @@ public class InputManager {
         }
     }
 
-
     public static <R> R nextLine(String prompt, Function<String, R> function) {
         try {
             return function.apply(nextLine(prompt));

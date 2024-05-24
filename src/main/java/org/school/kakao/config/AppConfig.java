@@ -32,8 +32,8 @@ public class AppConfig {
 
     public MovieService movieService() {
         List<ScreeningMovie> movies = List.of(
-                new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), new Seats(5, 5, 5, 5)),
-                new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), new Seats(5, 5, 5, 5))
+                new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), 5),
+                new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), 6)
         );
         return new MovieService(movies);
     }

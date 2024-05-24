@@ -11,7 +11,7 @@ public class SeatService {
         OutputManager.render();
         ScreeningMovie chosenMovie = AppContext.getInstance().getScreeningMovie();
 
-        List<List<String>> cinemaSeats = chosenMovie.getSeats().listing();
+        List<List<String>> cinemaSeats = chosenMovie.listing();
 
         for (List<String> seats : cinemaSeats) {
             for (String seat : seats) {
@@ -31,6 +31,6 @@ public class SeatService {
 
         ScreeningMovie movie = AppContext.getInstance().getScreeningMovie();
 
-        return movie.getSeats().book(List.of(order.split(",")));
+        return movie.book(List.of(order.split(",")));
     }
 }
