@@ -2,6 +2,7 @@ package org.school.kakao.config;
 
 import org.school.kakao.Cinema;
 import org.school.kakao.SummarizingService;
+import org.school.kakao.ThreadUser;
 import org.school.kakao.audience.AudienceService;
 import org.school.kakao.food.FoodController;
 import org.school.kakao.movie.MovieController;
@@ -19,8 +20,21 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class AppConfig {
+    private List<ScreeningMovie> movies;
+
+    public AppConfig() {
+        this.movies = List.of(
+                new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), 5),
+                new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), 6)
+        );
+    }
+
     public Cinema cinema() {
         return new Cinema(foodController(), movieController());
+    }
+
+    public ThreadUser threadUser() {
+        return new ThreadUser(this.movies);
     }
 
     private FoodController foodController() {
@@ -31,19 +45,15 @@ public class AppConfig {
         return new MovieController(audienceService(), movieService(), discountService(), summarizingService());
     }
 
-    public AudienceService audienceService() {
+    private AudienceService audienceService() {
         return new AudienceService();
     }
 
-    public MovieService movieService() {
-        List<ScreeningMovie> movies = List.of(
-                new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), 5),
-                new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), 6)
-        );
-        return new MovieService(movies);
+    private MovieService movieService() {
+        return new MovieService(this.movies);
     }
 
-    public FoodService foodService() {
+    private FoodService foodService() {
         return new FoodService(
                 List.of(
                         new Food("팝콘", 1000),
@@ -53,7 +63,7 @@ public class AppConfig {
                 ));
     }
 
-    public DiscountService discountService() {
+    private DiscountService discountService() {
         return new DiscountService(
                 new MovieDiscountStrategy(),
                 new TimeDiscountStrategy(),
@@ -61,7 +71,7 @@ public class AppConfig {
         );
     }
 
-    public SummarizingService summarizingService() {
+    private SummarizingService summarizingService() {
         return new SummarizingService();
     }
 }

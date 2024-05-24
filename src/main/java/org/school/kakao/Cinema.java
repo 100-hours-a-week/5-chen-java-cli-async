@@ -15,6 +15,8 @@ public class Cinema {
     }
 
     public void start() {
+
+
         OutputManager.render();
         while (true) {
             int op = InputManager.nextInt("선택 (Movie, Food, END)");
