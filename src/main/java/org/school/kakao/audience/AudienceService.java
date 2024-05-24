@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AudienceService {
 
-    public void ask() {
+    public Audience ask() {
         OutputManager.render();
 
         int personCount = InputManager.nextInt("몇 분이십니까?");
@@ -23,6 +23,6 @@ public class AudienceService {
 
             people.add(person);
         }
-        AppContext.getInstance().setAudience(new Audience(people));
+        return new Audience(people);
     }
 }

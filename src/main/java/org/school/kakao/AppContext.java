@@ -1,7 +1,7 @@
 package org.school.kakao;
 
 import org.school.kakao.audience.Audience;
-import org.school.kakao.discount.DiscountResult;
+import org.school.kakao.pay.DiscountResult;
 import org.school.kakao.food.Food;
 import org.school.kakao.movie.ScreeningMovie;
 import org.school.kakao.movie.SeatGrade;

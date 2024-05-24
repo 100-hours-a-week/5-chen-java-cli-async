@@ -1,29 +1,34 @@
 package org.school.kakao.config;
 
-import org.school.kakao.AppController;
+import org.school.kakao.Cinema;
 import org.school.kakao.SummarizingService;
 import org.school.kakao.audience.AudienceService;
-import org.school.kakao.discount.AudienceDiscountStrategy;
-import org.school.kakao.discount.DiscountService;
-import org.school.kakao.discount.MovieDiscountStrategy;
-import org.school.kakao.discount.TimeDiscountStrategy;
+import org.school.kakao.food.FoodController;
+import org.school.kakao.movie.MovieController;
+import org.school.kakao.pay.AudienceDiscountStrategy;
+import org.school.kakao.pay.DiscountService;
+import org.school.kakao.pay.MovieDiscountStrategy;
+import org.school.kakao.pay.TimeDiscountStrategy;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodService;
-import org.school.kakao.movie.*;
+import org.school.kakao.movie.Genre;
+import org.school.kakao.movie.MovieService;
+import org.school.kakao.movie.ScreeningMovie;
 
 import java.time.LocalTime;
 import java.util.List;
 
 public class AppConfig {
-    public AppController appController() {
-        return new AppController(
-                audienceService(),
-                movieService(),
-                seatService(),
-                foodService(),
-                discountService(),
-                summarizingService()
-        );
+    public Cinema cinema() {
+        return new Cinema(foodController(), movieController());
+    }
+
+    private FoodController foodController() {
+        return new FoodController(foodService(), discountService(), summarizingService());
+    }
+
+    private MovieController movieController() {
+        return new MovieController(audienceService(), movieService(), discountService(), summarizingService());
     }
 
     public AudienceService audienceService() {
@@ -36,10 +41,6 @@ public class AppConfig {
                 new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), 6)
         );
         return new MovieService(movies);
-    }
-
-    public SeatService seatService() {
-        return new SeatService();
     }
 
     public FoodService foodService() {

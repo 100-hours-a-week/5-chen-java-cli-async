@@ -1,4 +1,4 @@
-package org.school.kakao.discount;
+package org.school.kakao.pay;
 
 public interface DiscountStrategy<T> {
 

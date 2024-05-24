@@ -1,4 +1,4 @@
-package org.school.kakao.discount;
+package org.school.kakao.pay;
 
 import java.time.LocalTime;
 import java.util.List;

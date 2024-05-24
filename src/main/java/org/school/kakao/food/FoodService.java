@@ -14,14 +14,13 @@ public class FoodService {
         this.foodsInCinema = foodsInCinema;
     }
 
-    public void ask() {
+    public List<Food> ask() {
         OutputManager.render();
         for (int i = 1; i <= foodsInCinema.size(); i++) {
             Food food = foodsInCinema.get(i - 1);
             OutputManager.println(i + " : " + food.getName() + " " + food.getPrice());
         }
-        List<Food> chosenFoods = InputManager.nextLine("먹거리 선택하시겠습니까? (쉼표로 구분)", this::choiceFoods);
-        AppContext.getInstance().setFoods(chosenFoods);
+        return InputManager.nextLine("먹거리 선택하시겠습니까? (쉼표로 구분)", this::choiceFoods);
     }
 
     private List<Food> choiceFoods(String orderFromCustomer) throws IllegalArgumentException {

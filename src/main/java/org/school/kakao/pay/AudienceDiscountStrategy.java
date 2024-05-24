@@ -1,4 +1,4 @@
-package org.school.kakao.discount;
+package org.school.kakao.pay;
 
 import org.school.kakao.audience.Audience;
 
