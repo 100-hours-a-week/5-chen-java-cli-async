@@ -5,6 +5,8 @@ import org.school.kakao.movie.ScreeningMovie;
 import java.util.List;
 
 public class ThreadUser {
+    private static final int BOOK_TRY = 5;
+
     private List<ScreeningMovie> movies;
 
     public ThreadUser(List<ScreeningMovie> movies) {
@@ -12,26 +14,28 @@ public class ThreadUser {
     }
 
     public void start() {
-        Thread threadUser = new Thread(() -> {
-            while (true) {
-                for (ScreeningMovie movie : movies) {
+        Runnable reserveTask = () -> {
+            try {
+                Thread.sleep(1000);
+                for (int i = 0; i < BOOK_TRY; i++) {
+                    ScreeningMovie movie = movies.get(getRandomMovieNumber(movies));
                     List<List<String>> seats = movie.listing();
+
                     String lane = getRandomLaneNumber(seats);
                     int seatNumber = getRandomSeatNumber(seats);
 
-                    try {
-                        movie.book(List.of(lane + seatNumber));
-                    } catch (IllegalArgumentException ignored) {
-                    }
-                }
+                    movie.book(List.of(lane + seatNumber));
 
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException exception) {
                 }
+            } catch (IllegalArgumentException | InterruptedException ignored) {
             }
-        });
-        threadUser.start();
+        };
+
+        new Thread(reserveTask).start();
+        new Thread(reserveTask).start();
+        new Thread(reserveTask).start();
+        new Thread(reserveTask).start();
+        new Thread(reserveTask).start();
     }
 
     private static int getRandomSeatNumber(List<List<String>> seats) {
@@ -45,5 +49,11 @@ public class ThreadUser {
         double laneNumber = 65 + (Math.random() * laneSize);
         char lane = (char) Math.floor(laneNumber);
         return String.valueOf(lane);
+    }
+
+    private static int getRandomMovieNumber(List<ScreeningMovie> movies) {
+        int movieSize = movies.size();
+        double movieNumber = Math.random() * movieSize;
+        return (int) Math.floor(movieNumber);
     }
 }

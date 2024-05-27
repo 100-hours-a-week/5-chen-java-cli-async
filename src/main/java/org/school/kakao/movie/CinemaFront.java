@@ -1,15 +1,31 @@
 package org.school.kakao.movie;
 
+import org.school.kakao.io.OutputManager;
+
 import java.time.LocalTime;
 import java.util.List;
 
 public class CinemaFront extends ScreeningMovie {
+    private static final int BOOK_TIME = 1_000;
+
+    private static final Object lock = new Object();
+
     public CinemaFront(String title, Genre genre, LocalTime time, int seatAmount) {
         super(title, genre, time, seatAmount);
     }
 
     @Override
     public List<SeatGrade> book(List<String> order) throws IllegalArgumentException {
-        return super.book(order);
+        synchronized (lock) {
+            try {
+                String threadName = Thread.currentThread().getName();
+                OutputManager.rawPrintf("\r{%7s} %8s 예약 중...", threadName, getTitle());
+
+                Thread.sleep(BOOK_TIME);
+            } catch (InterruptedException e) {
+                throw new IllegalArgumentException(e);
+            }
+            return super.book(order);
+        }
     }
 }

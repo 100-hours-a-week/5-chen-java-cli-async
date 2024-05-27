@@ -5,16 +5,13 @@ import org.school.kakao.SummarizingService;
 import org.school.kakao.ThreadUser;
 import org.school.kakao.audience.AudienceService;
 import org.school.kakao.food.FoodController;
-import org.school.kakao.movie.MovieController;
+import org.school.kakao.movie.*;
 import org.school.kakao.pay.AudienceDiscountStrategy;
 import org.school.kakao.pay.DiscountService;
 import org.school.kakao.pay.MovieDiscountStrategy;
 import org.school.kakao.pay.TimeDiscountStrategy;
 import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodService;
-import org.school.kakao.movie.Genre;
-import org.school.kakao.movie.MovieService;
-import org.school.kakao.movie.ScreeningMovie;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -24,8 +21,11 @@ public class AppConfig {
 
     public AppConfig() {
         this.movies = List.of(
-                new ScreeningMovie("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), 5),
-                new ScreeningMovie("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), 6)
+                new CinemaFront("범죄도시4", Genre.ACTION, LocalTime.of(19, 30), 5),
+                new CinemaFront("쿵푸팬더4", Genre.ADVENTURE, LocalTime.of(20, 30), 6),
+                new CinemaFront("설계자", Genre.ACTION, LocalTime.of(19, 30), 5),
+                new CinemaFront("하이큐", Genre.ACTION, LocalTime.of(19, 30), 5),
+                new CinemaFront("매드맥스", Genre.ACTION, LocalTime.of(19, 30), 5)
         );
     }
 
