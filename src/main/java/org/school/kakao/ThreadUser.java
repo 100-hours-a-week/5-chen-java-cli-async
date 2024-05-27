@@ -5,7 +5,7 @@ import org.school.kakao.movie.ScreeningMovie;
 import java.util.List;
 
 public class ThreadUser {
-    private static final int BOOK_TRY = 5;
+    private static final int BOOK_TRY = 300;
 
     private List<ScreeningMovie> movies;
 
