@@ -16,7 +16,7 @@ public class CinemaFront extends ScreeningMovie {
     public synchronized List<SeatGrade> book(List<String> order) throws IllegalArgumentException {
         try {
             String threadName = Thread.currentThread().getName();
-            OutputManager.rawPrintf("{%7s} %8s 예약 중...\n", threadName, getTitle());
+//            OutputManager.rawPrintf("{%7s} %8s 예약 중...\n", threadName, getTitle());
 
             Thread.sleep(BOOK_TIME);
         } catch (InterruptedException e) {

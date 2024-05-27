@@ -34,11 +34,17 @@ public class ScreeningMovie extends MovieAtTime {
     public List<SeatGrade> book(List<String> order) throws IllegalArgumentException {
         List<Seat> list = new ArrayList<>();
         for (String seatOrder : order) {
+            if (seatOrder.length() != 2) {
+                throw new IllegalArgumentException("형식이 틀렸습니다. : " + seatOrder);
+            }
             String[] split = seatOrder.split("");
             String key = split[0].toUpperCase();
             int strNum = Integer.parseInt(split[1]);
 
             List<Seat> seatLane = seatMap.get(key);
+            if (seatLane == null) {
+                throw new IllegalArgumentException("형식이 틀렸습니다. : " + seatOrder);
+            }
             Seat seat = seatLane.get(strNum - 1);
             if (seat.isOccupied()) {
                 throw new IllegalArgumentException("이미 예약되었습니다. : " + seatOrder);

@@ -1,2 +1,2 @@
-rootProject.name = "java-cli-sync"
+rootProject.name = "java-cli-async"
 

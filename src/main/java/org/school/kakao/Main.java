@@ -11,5 +11,6 @@ public class Main {
 
         threadUser.start();
         cinema.start();
+        threadUser.end();
     }
 }

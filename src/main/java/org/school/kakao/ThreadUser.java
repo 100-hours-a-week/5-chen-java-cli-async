@@ -2,15 +2,19 @@ package org.school.kakao;
 
 import org.school.kakao.movie.ScreeningMovie;
 
+import java.nio.channels.ClosedByInterruptException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ThreadUser {
     private static final int BOOK_TRY = 300;
 
     private List<ScreeningMovie> movies;
+    private List<Thread> threads;
 
     public ThreadUser(List<ScreeningMovie> movies) {
         this.movies = movies;
+        this.threads = new ArrayList<>();
     }
 
     public void start() {
@@ -27,15 +31,17 @@ public class ThreadUser {
                     movie.book(List.of(lane + seatNumber));
 
                 }
-            } catch (IllegalArgumentException | InterruptedException ignored) {
+            } catch (IllegalArgumentException ignored) {
+            } catch (InterruptedException exitr) {
             }
         };
 
-        new Thread(reserveTask).start();
-        new Thread(reserveTask).start();
-        new Thread(reserveTask).start();
-        new Thread(reserveTask).start();
-        new Thread(reserveTask).start();
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(reserveTask);
+            thread.start();
+            threads.add(thread);
+        }
+
     }
 
     private static int getRandomSeatNumber(List<List<String>> seats) {
@@ -55,5 +61,9 @@ public class ThreadUser {
         int movieSize = movies.size();
         double movieNumber = Math.random() * movieSize;
         return (int) Math.floor(movieNumber);
+    }
+
+    public void end() {
+        threads.stream().forEach(Thread::interrupt);
     }
 }
