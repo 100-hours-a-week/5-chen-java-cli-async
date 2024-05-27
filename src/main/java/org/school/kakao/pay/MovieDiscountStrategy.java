@@ -1,7 +1,6 @@
 package org.school.kakao.pay;
 
 import org.school.kakao.movie.Genre;
-import org.school.kakao.movie.Movie;
 
 import java.util.List;
 

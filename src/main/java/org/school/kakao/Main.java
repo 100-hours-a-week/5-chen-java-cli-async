@@ -5,8 +5,11 @@ import org.school.kakao.config.AppConfig;
 public class Main {
     public static void main(String[] args) {
         AppConfig appConfig = new AppConfig();
+
         Cinema cinema = appConfig.cinema();
-        appConfig.threadUser().start();
+        ThreadUser threadUser = appConfig.threadUser();
+
+        threadUser.start();
         cinema.start();
     }
 }

@@ -4,14 +4,14 @@ import org.school.kakao.Cinema;
 import org.school.kakao.SummarizingService;
 import org.school.kakao.ThreadUser;
 import org.school.kakao.audience.AudienceService;
+import org.school.kakao.food.Food;
 import org.school.kakao.food.FoodController;
+import org.school.kakao.food.FoodService;
 import org.school.kakao.movie.*;
 import org.school.kakao.pay.AudienceDiscountStrategy;
 import org.school.kakao.pay.DiscountService;
 import org.school.kakao.pay.MovieDiscountStrategy;
 import org.school.kakao.pay.TimeDiscountStrategy;
-import org.school.kakao.food.Food;
-import org.school.kakao.food.FoodService;
 
 import java.time.LocalTime;
 import java.util.List;
