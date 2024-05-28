@@ -1,7 +1,5 @@
 package org.school.kakao.movie;
 
-import org.school.kakao.io.OutputManager;
-
 import java.time.LocalTime;
 import java.util.List;
 
