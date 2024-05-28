@@ -1,9 +1,11 @@
 # CINEMA
 
-![IMAGE](docs/class-diagram-2.drawio.png)
+![IMAGE](docs/class-diagram-3.drawio.png)
 
 # 실행 예시
 ![IMAGE](docs/whole_app.gif)
+![IMAGE](docs/watch.gif)
+> 위 화면을 보려면  Main에서 ThreadApp의 start(false)에서 start(true)로 바꿔야 한다.
 
 # 클래스
 
@@ -20,6 +22,9 @@
 
 ### Cinema
 - 실질적으로 애플리케이션이 시작되는 클래스
+
+### ThreadApp
+- 쓰레드 초기화 및 쓰레드 흐름제어
 
 ## 컨트롤러 클래스
 
@@ -86,7 +91,7 @@ DiscountService, SummarizingService를 이용해서 결과를 출력합니다.
 - ScreeningMovie를 상속하며, 멀티스레드 환경에서 예약을 가능하게 한다.
 - 예약 메소드를 오버라이딩하여, syncronized 된 예약 메소드를 구현한다.
 
-### ThreadUser
+### OnlineUser
 - 여러 쓰레드를 통해 유저와 동시간대에 영화를 예매한다.
 - 여러 영화중 랜덤하게 영화를 선택하고, 랜덤한 좌석을 골라 예매 시도한다.
   - 자리가 이미 예약되어 있다면 예약하지 못한다.
@@ -102,6 +107,19 @@ DiscountService, SummarizingService를 이용해서 결과를 출력합니다.
 ### Food
 - 음식 이름, 가격을 가지고 있는 클래스
 - AppConfig에서 하드코딩된 값으로 생성된다.
+
+### CinemaFoodQueue
+- 영화관 각 음식 마다 하나씩 존재하는 재고관리 클래스
+- 큐를 통해 음식 재고를 관리한다.
+- 쓰레드(Producer)를 통해 생산하고, 사용자와 쓰레드(Consumer)를 통해 소비한다.
+
+### FoodProducer
+- 영화관 음식을 생산하는 Runnable 구현 클래스
+- 0~1초 사이의 랜덤한 시간에 음식을 1개 생산한다.
+- 
+### FoodConsumer
+- 영화관 음식을 소비하는 Runnable 구현 클래스
+- 0~1초 사이의 랜덤한 시간에 음식을 1개 소비한다.
 
 ### DiscountStrategy
 - 할인을 정의한 인터페이스
