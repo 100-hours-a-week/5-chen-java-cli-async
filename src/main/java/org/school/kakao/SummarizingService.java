@@ -54,11 +54,13 @@ public class SummarizingService {
         OutputManager.println("+ 음식 금액 = " + foodPrice);
         resultPrice += foodPrice;
 
-        String discountNames = String.join(", ", discountResult.getNames());
-        int discountedPrice = discountResult.getTotal();
-        OutputManager.println(discountNames);
-        OutputManager.println("- 할인 금액 = " + discountedPrice);
-        resultPrice -= discountedPrice;
+        if (discountResult.getTotal() != 0) {
+            String discountNames = String.join(", ", discountResult.getNames());
+            int discountedPrice = discountResult.getTotal();
+            OutputManager.println(discountNames);
+            OutputManager.println("- 할인 금액 = " + discountedPrice);
+            resultPrice -= discountedPrice;
+        }
 
         OutputManager.println("= 총    액 = " + resultPrice);
     }
